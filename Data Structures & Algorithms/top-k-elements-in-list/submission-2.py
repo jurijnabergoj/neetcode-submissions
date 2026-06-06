@@ -1,0 +1,16 @@
+from collections import Counter
+
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        counts = Counter(nums)
+
+        buckets = [[] for _ in range(len(nums) + 1)]
+        for num, freq in counts.items():
+            buckets[freq].append(num)
+        
+        result = []
+        for l in range(len(buckets) - 1, -1, -1):
+            for x in buckets[l]:
+                result.append(x)
+                if len(result) == k:
+                    return result
